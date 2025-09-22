@@ -1,7 +1,7 @@
 ## Ex. No. 01 - Image-Handling-and-Pixel-Transformations-Using-OpenCV 
 ## Name : ASWIN L
 ## Reg No : 212224230028
-## Date : 31/08/25
+## Date : 22/09/25
 
 
 ## AIM:
@@ -44,305 +44,318 @@ REG NO: 212224230028
 #### 1. Read the image ('Eagle_in_Flight.jpg') using OpenCV imread() as a grayscale image.
 ```
 import cv2
-import numpy as np
 import matplotlib.pyplot as plt
-img =cv2.imread('Eagle_in_Flight.jpg',cv2.IMREAD_COLOR)
+img = cv2.imread('me.jpg', cv2.IMREAD_COLOR)
 img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 ```
 
-#### 2. Print the image width, height & Channel.
+#### 2. Display the image using matplotlib imshow().
 ```
-img.shape
-```
-
-#### 3. Display the image using matplotlib imshow().
-```
-img_gray = cv2.cvtColor(img_rgb, cv2.COLOR_RGB2GRAY)
-plt.imshow(img_gray,cmap='grey')
+plt.imshow(img_rgb, cmap='viridis')  
+plt.title("Original Image")
+plt.axis('off')  
 plt.show()
 ```
 
-#### 4. Save the image as a PNG file using OpenCV imwrite().
+#### 4. # Convert BGR (OpenCV's default) to RGB (Matplotlib's expected color order)
 ```
-img=cv2.imread('Eagle_in_Flight.jpg')
-cv2.imwrite('Eagle.png',img)
-```
-
-#### 5. Read the saved image above as a color image using cv2.cvtColor().
-```
-img=cv2.imread('Eagle_in_Flight.jpg')
-cv2.imwrite('Eagle.png',img)
-```
-
-#### 6. Display the Colour image using matplotlib imshow() & Print the image width, height & channel.
-```
-plt.imshow(img)
-plt.show()
-img.shape
-```
-
-#### 7. Crop the image to extract any specific (Eagle alone) object from the image.
-```
-crop = img_rgb[0:450,200:550] 
-plt.imshow(crop[:,:,::-1])
-plt.title("Cropped Region")
-plt.axis("off")
-plt.show()
-crop.shape
-```
-
-#### 8. Resize the image up by a factor of 2x.
-```
-res= cv2.resize(crop,(200*2, 200*2))
-```
-
-#### 9. Flip the cropped/resized image horizontally.
-```
-flip= cv2.flip(res,1)
-plt.imshow(flip[:,:,::-1])
-plt.title("Flipped Horizontally")
-plt.axis("off")
-```
-
-#### 10. Read in the image ('Apollo-11-launch.jpg').
-```
-img=cv2.imread('Apollo-11-launch.jpg',cv2.IMREAD_COLOR)
+image = cv2.imread('me.jpg')
 img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 img_rgb.shape
 ```
 
-#### 11. Add the following text to the dark area at the bottom of the image (centered on the image):
+#### 5. Draw a line from top-left to bottom-right
 ```
-text = cv2.putText(img_rgb, "Apollo 11 Saturn V Launch, July 16, 1969", (300, 700),cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)  
-plt.imshow(text, cmap='gray')  
-plt.title("New image")
-plt.show()  
-
-```
-
-#### 12. Draw a magenta rectangle that encompasses the launch tower and the rocket.
-```
-rcol= (255, 0, 255)
-cv2.rectangle(img_rgb, (400, 100), (800, 650), rcol, 3)  
-```
-
-#### 13. Display the final annotated image.
-```
-plt.title("Annotated image")
-plt.imshow(img_rgb)
+line_img = cv2.line(img_rgb, (0, 0), (768, 600), (255, 0, 0), 2) # cv2.line(image, start_point, end_point, color, thickness)
+plt.imshow(line_img, cmap='viridis')  
+plt.title("Image with Line")
+plt.axis('off')  
 plt.show()
 ```
 
-#### 14. Read the image ('Boy.jpg').
+#### 6. Display the image with Circle
 ```
-img =cv2.imread('boy.jpg',cv2.IMREAD_COLOR)
-img_rgb= cv2.cvtColor(img, cv2.COLOR_BGR2RGB) 
-```
-
-#### 15. Adjust the brightness of the image.
-```
-m = np.ones(img_rgb.shape, dtype="uint8") * 50
-```
-
-#### 16. Create brighter and darker images.
-```
-img_brighter = cv2.add(img_rgb, m)  
-img_darker = cv2.subtract(img_rgb, m)  
-```
-
-#### 17. Display the images (Original Image, Darker Image, Brighter Image).
-```
-plt.figure(figsize=(10,5))
-plt.subplot(1,3,1), plt.imshow(img_rgb), plt.title("Original Image"), plt.axis("off")
-plt.subplot(1,3,2), plt.imshow(img_brighter), plt.title("Brighter Image"), plt.axis("off")
-plt.subplot(1,3,3), plt.imshow(img_darker), plt.title("Darker Image"), plt.axis("off")
+circle_img = cv2.circle(img_rgb,(400,300),150,(255,0,0),10) # cv2.circle(image, center, radius, color, thickness)
+plt.imshow(circle_img, cmap='viridis')  
+plt.title("Image with Circle")
+plt.axis('off')  
 plt.show()
 ```
 
-#### 18. Modify the image contrast.
+#### 7. Display the image with Rectangle
 ```
-matrix1 = np.ones(img_rgb.shape, dtype="float32") * 1.1
-matrix2 = np.ones(img_rgb.shape, dtype="float32") * 1.2
-img_higher1 = cv2.multiply(img.astype("float32"), matrix1).clip(0,255).astype("uint8")
-img_higher2 = cv2.multiply(img.astype("float32"), matrix2).clip(0,255).astype("uint8")
-```
-
-#### 19. Display the images (Original, Lower Contrast, Higher Contrast).
-```
-plt.figure(figsize=(10,5))
-plt.subplot(1,3,1), plt.imshow(img), plt.title("Original Image"), plt.axis("off")
-plt.subplot(1,3,2), plt.imshow(img_higher1), plt.title("Higher Contrast (1.1x)"), plt.axis("off")
-plt.subplot(1,3,3), plt.imshow(img_higher2), plt.title("Higher Contrast (1.2x)"), plt.axis("off")
+image = cv2.imread('me.jpg') 
+img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+img.shape
+rectangle_img = cv2.rectangle(img_rgb, (0, 0), (768, 600), (0, 0, 255), 10)  # cv2.rectangle(image, start_point, end_point, color, thickness)
+plt.imshow(rectangle_img, cmap='viridis')  
+plt.title("Image with Rectangle")
+plt.axis('off')  
 plt.show()
 ```
 
-#### 20. Split the image (boy.jpg) into the B,G,R components & Display the channels.
+#### 8. Add text to the image
 ```
-b, g, r = cv2.split(img)
-plt.figure(figsize=(10,5))
-plt.subplot(1,3,1), plt.imshow(b, cmap='gray'), plt.title("Blue Channel"), plt.axis("off")
-plt.subplot(1,3,2), plt.imshow(g, cmap='gray'), plt.title("Green Channel"), plt.axis("off")
-plt.subplot(1,3,3), plt.imshow(r, cmap='gray'), plt.title("Red Channel"), plt.axis("off")
+image = cv2.imread('me.jpg') 
+img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+text_img = cv2.putText(img_rgb, "Good Morning", (40, 80), cv2.FONT_HERSHEY_SIMPL
+plt.imshow(text_img, cmap='viridis')  
+plt.title("Image with Text")
+plt.axis('off')  
 plt.show()
 ```
 
-#### 21. Merged the R, G, B , displays along with the original image
+#### 9. Original RGB Image
 ```
-merged_rgb = cv2.merge([r, g, b])
-plt.figure(figsize=(5,5))
-plt.imshow(merged_rgb)
-plt.title("Merged RGB Image")
+image = cv2.imread('me.jpg')
+image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+plt.imshow(image_rgb)
+plt.title("Original RGB Image")
+plt.axis("off")
+```
+
+#### 10. Convert RGB to HSV
+```
+image_hsv = cv2.cvtColor(image_rgb, cv2.COLOR_RGB2HSV)
+```
+
+#### 11. HSV Image
+```
+plt.imshow(image_hsv)
+plt.title("HSV Image")
+plt.axis("off")
+
+```
+
+#### 12. Convert RGB to GRAY
+```
+ image_gray = cv2.cvtColor(image_rgb, cv2.COLOR_RGB2GRAY)
+```
+
+#### 13. Grayscale Image
+```
+plt.imshow(image_gray, cmap='gray')
+plt.title("Grayscale Image")
+plt.axis("off")
+```
+
+#### 14. Convert RGB to YCrCb
+```
+image_ycrcb = cv2.cvtColor(image_rgb, cv2.COLOR_RGB2YCrCb)
+```
+
+#### 15. YCrCb Image
+```
+plt.imshow(image_ycrcb)
+plt.title("YCrCb Image")
+plt.axis("off")
+```
+
+#### Convert HSV back to RGB
+```
+image_hsv_to_rgb = cv2.cvtColor(image_hsv, cv2.COLOR_HSV2RGB)
+plt.imshow(image_hsv_to_rgb)
+plt.title("HSV to RGB Image")
+plt.axis("off") 
+```
+
+#### 17.  Display the modified image
+```
+image[100:300, 200:300] = [255, 255, 255]  # Rows: 200-499, Columns: 200-499
+image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+plt.imshow(image_rgb)
+plt.title("Image with 300x300 White Block")
 plt.axis("off")
 plt.show()
 ```
 
-#### 22. Split the image into the H, S, V components & Display the channels.
+#### 18. Resize the image to half its size
 ```
-hsv_img = cv2.cvtColor(img, cv2.COLOR_RGB2HSV)
-h, s, v = cv2.split(hsv_img)
-plt.figure(figsize=(10,5))
-plt.subplot(1,3,1), plt.imshow(h, cmap='gray'), plt.title("Hue Channel"), plt.axis("off")
-plt.subplot(1,3,2), plt.imshow(s, cmap='gray'), plt.title("Saturation Channel"), plt.axis("off")
-plt.subplot(1,3,3), plt.imshow(v, cmap='gray'), plt.title("Value Channel"), plt.axis("off")
-plt.show()
+image = cv2.imread('me.jpg')
+image.shape
+resized_image = cv2.resize(image, (768 // 2, 600 // 2))
+
 ```
-#### 23. Merged the H, S, V, displays along with original image.
+
+#### 19. Display the resized image
 ```
-merged_hsv = cv2.cvtColor(cv2.merge([h, s, v]), cv2.COLOR_HSV2RGB)
-combined = np.concatenate((img_rgb, merged_hsv), axis=1)
-plt.figure(figsize=(10, 5))
-plt.imshow(combined)
-plt.title("Original Image  &  Merged HSV Image")
+resized_image_rgb = cv2.cvtColor(resized_image, cv2.COLOR_BGR2RGB)
+resized_image_rgb.shape
+plt.imshow(resized_image_rgb)
+plt.title("Resized Image (Half Size)")
 plt.axis("off")
 plt.show()
+```
+
+#### 20. Crop a 300x300 region starting from (50, 50)
+```
+image = cv2.imread('me.jpg')
+image.shape
+roi = image[50:350, 50:350]  # Rows: 50-349, Columns: 50-349
+```
+
+#### 21. Display the cropped region (ROI)
+```
+roi_rgb = cv2.cvtColor(roi, cv2.COLOR_BGR2RGB)
+plt.imshow(roi_rgb)
+plt.title("Cropped Region of Interest (ROI)")
+plt.axis("off")
+plt.show()
+```
+
+#### 22. Flip the image horizontally (left-right)
+```
+image = cv2.imread('me.jpg')
+flipped_horizontally = cv2.flip(image, 1)
+flipped_horizontally_rgb = cv2.cvtColor(flipped_horizontally, cv2.COLOR_BGR2RGB)
+plt.imshow(flipped_horizontally_rgb)
+plt.title("Flipped Horizontally")
+plt.axis("off")
+```
+#### 23. Flip the image vertically (up-down)
+```
+flipped_vertically = cv2.flip(image, 0)
+flipped_vertically_rgb = cv2.cvtColor(flipped_vertically, cv2.COLOR_BGR2RGB)
+plt.imshow(flipped_vertically_rgb)
+plt.title("Flipped Vertically")
+plt.axis("off")
 ```
 
 ## Output:
 **i)** Read and Display an Image.
-1.Read 'Eagle_in_Flight.jpg' as grayscale and display:
+1.Read 'me.jpg' as grayscale and display:
 
 
-![Screenshot 2025-03-09 154231](https://github.com/user-attachments/assets/31689cac-7a79-459c-9940-0adc26441782)
-
-
-
-
-
-
- 2.Save image as PNG and display:
-
-
-
-
- 
-  ![image](https://github.com/user-attachments/assets/f17ba18b-7549-45e8-80a4-8568b81b718b)
+<img width="413" height="562" alt="Screenshot 2025-09-22 112328" src="https://github.com/user-attachments/assets/9c827791-1938-4f96-92ea-e1e908ee4113" />
 
 
 
 
 
 
-  
-  3.Cropped image
+
+ 2.Image with Line:
 
 
 
-
-
-  
-  ![image](https://github.com/user-attachments/assets/ebd99581-276e-47f9-af37-c99423e803bc)
-
-
-
-
-
-  
-  4.Resize and flip Horizontally:
-
-
-
-
-  
-  ![image](https://github.com/user-attachments/assets/92cb7462-a2fd-4ba3-bf89-02785b629e1d)
-
-
-
-
-
-  
-  5.Read 'Apollo-11-launch.jpg' and Display the final annotated image:
-
-
-
-
-![Screenshot 2025-03-11 082700](https://github.com/user-attachments/assets/564d076b-ed47-4903-8afe-52dc989b0800)
-
-
-
-
-  
-*ii)** Adjust Image Brightness.
-
-
-
-1.Create brighter and darker images and display:
-
-
-
-
-![image](https://github.com/user-attachments/assets/f34966ee-21f9-4441-bdd4-36c3da71b89d)
-
-
-
-  **iii)** Modify Image Contrast.
-
-
-1.Modify contrast using scaling factors 1.1 and 1.2
+<img width="431" height="558" alt="Screenshot 2025-09-22 112337" src="https://github.com/user-attachments/assets/38d948a2-fc31-45df-b241-371ad49a20e4" />
 
  
-![image](https://github.com/user-attachments/assets/998698a5-0d84-4f73-96d6-68421a529951)
- 
-
- **iv)** Generate Third Image Using Bitwise Operations.
-
-
- 
- 1.Split 'Boy.jpg' into B, G, R components and display: 
-
-
-
-![image](https://github.com/user-attachments/assets/54d59ef6-9800-4ff4-af13-f15fd602d334)
-
-
-
-
-2.Merge the R, G, B channels and display:
-
-
-
-![Screenshot 2025-03-11 082425](https://github.com/user-attachments/assets/6db4d2a2-8b21-43e5-976a-8f199eebc8cc)
 
 
 
 
 
-
-3.Split the image into H, S, V components and display:
-
-
-
-
-![Screenshot 2025-03-11 082414](https://github.com/user-attachments/assets/e5a79c38-d998-4ced-82d2-d750d465572d)
+  
+  3.Image with circle
 
 
 
 
+<img width="445" height="551" alt="Screenshot 2025-09-22 112343" src="https://github.com/user-attachments/assets/1af6f51f-2e7f-446d-a5f8-7afa1e33fcaf" />
 
-4.Merge the H, S, V channels and display:
+  
+  
 
 
 
-![Screenshot 2025-03-11 082402](https://github.com/user-attachments/assets/2e2034ed-8cc3-4855-a8cb-87632e161c80)
+
+
+  
+  4. Image with Rectangle:
+
+
+
+
+<img width="449" height="559" alt="Screenshot 2025-09-22 112353" src="https://github.com/user-attachments/assets/94a7e88b-7b8d-480e-ab38-d5490fb83762" />
+
+
+
+
+
+
+
+  
+  5. Image with Text:
+
+
+<img width="404" height="549" alt="Screenshot 2025-09-22 112400" src="https://github.com/user-attachments/assets/952affd6-6134-4496-b40c-607b7237778c" />
+
+
+
+
+
+
+
+
+6. Orginal RGB Image:
+
+
+
+<img width="402" height="561" alt="Screenshot 2025-09-22 112408" src="https://github.com/user-attachments/assets/4e5434f7-ca19-4b6a-82b4-90e2290a755f" />
+
+
+
+
+
+7. HSV Image
+
+
+<img width="447" height="578" alt="Screenshot 2025-09-22 112422" src="https://github.com/user-attachments/assets/037553d6-eae6-44dc-a03f-2091c08c6571" />
+
+
+
+
+
+
+8. Grayscale Image
+
+
+
+<img width="418" height="572" alt="Screenshot 2025-09-22 112428" src="https://github.com/user-attachments/assets/447ea295-21d9-47bc-9f01-2742d068da8c" />
+
+
+
+
+
+
+
+9. YCrCb Image
+
+
+<img width="443" height="567" alt="Screenshot 2025-09-22 112434" src="https://github.com/user-attachments/assets/ccfc9e4f-c450-44f4-b070-6fb37e20f696" />
+
+10. HSV to RGB Image:
+
+
+<img width="411" height="565" alt="Screenshot 2025-09-22 112441" src="https://github.com/user-attachments/assets/cc58fea5-6a55-48b7-bb75-ad8644b9fe14" />
+
+
+11. Image with 300x300 White Block:
+
+
+<img width="428" height="559" alt="Screenshot 2025-09-22 112447" src="https://github.com/user-attachments/assets/ec5d4249-bc4a-4122-9309-c72dd5222983" />
+
+
+
+12. Resized Image(Half Size):
+
+<img width="666" height="583" alt="Screenshot 2025-09-22 112454" src="https://github.com/user-attachments/assets/f304deac-2612-415c-81d8-f26363548604" />
+
+
+14. Cropped REGION Interest (ROI):
+
+
+<img width="551" height="579" alt="Screenshot 2025-09-22 112500" src="https://github.com/user-attachments/assets/0c0304b8-5c73-422b-9c76-250b4ea7f379" />
+
+
+15. Flipped Horizontally:
+
+<img width="409" height="557" alt="Screenshot 2025-09-22 112505" src="https://github.com/user-attachments/assets/2bda75f8-cfd0-4bab-9cc0-af0e3efd3bc7" />
+
+16. Flipped Vertically:
+
+    <img width="429" height="572" alt="Screenshot 2025-09-22 112512" src="https://github.com/user-attachments/assets/0951228c-1334-477a-89eb-469f8fa7eb8d" />
 
 
 
